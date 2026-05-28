@@ -1,0 +1,1169 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, "SF Pro Display", "PingFang SC", "Microsoft YaHei", system-ui,
+    sans-serif;
+  --bg: #09111f;
+  --panel: rgba(9, 17, 31, 0.74);
+  --panel-strong: rgba(17, 30, 50, 0.9);
+  --line: rgba(188, 236, 233, 0.18);
+  --text: #f8ecd0;
+  --muted: rgba(248, 236, 208, 0.66);
+  --cyan: #72f7ff;
+  --jade: #68d8c1;
+  --gold: #f3c969;
+  --red: #e85d75;
+  --violet: #8c73c9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(104, 216, 193, 0.18), transparent 26%),
+    radial-gradient(circle at 78% 18%, rgba(232, 93, 117, 0.13), transparent 23%),
+    linear-gradient(180deg, #081222 0%, #0d1930 46%, #151128 100%);
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.95;
+  background-image:
+    radial-gradient(circle at 9% 14%, rgba(255, 255, 255, 0.95) 0 1px, transparent 2px),
+    radial-gradient(circle at 22% 26%, rgba(114, 247, 255, 0.75) 0 1px, transparent 2px),
+    radial-gradient(circle at 34% 9%, rgba(255, 255, 255, 0.8) 0 1px, transparent 2px),
+    radial-gradient(circle at 48% 30%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 67% 13%, rgba(243, 201, 105, 0.75) 0 1px, transparent 2px),
+    radial-gradient(circle at 83% 25%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 92% 8%, rgba(114, 247, 255, 0.7) 0 1px, transparent 2px),
+    radial-gradient(circle at 16% 62%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+    radial-gradient(circle at 76% 68%, rgba(255, 255, 255, 0.75) 0 1px, transparent 2px);
+  animation: starBreath 5s ease-in-out infinite alternate;
+}
+
+.stars i {
+  display: none;
+}
+
+.topbar {
+  position: fixed;
+  z-index: 20;
+  top: 18px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(8, 16, 30, 0.62);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 12px;
+}
+
+.brandMark,
+.infoIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(114, 247, 255, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(114, 247, 255, 0.18), rgba(232, 93, 117, 0.14));
+  color: var(--cyan);
+  box-shadow: inset 0 0 22px rgba(114, 247, 255, 0.12);
+}
+
+.brand strong,
+.panelHeader strong {
+  display: block;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.brand span,
+.panelHeader span,
+.sceneHud span,
+.infoCard span,
+.metric span,
+.field span,
+.sectionTitle {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.statusPills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.statusPills span {
+  white-space: nowrap;
+  border: 1px solid rgba(243, 201, 105, 0.25);
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(243, 201, 105, 0.08);
+  color: rgba(248, 236, 208, 0.84);
+  font-size: 12px;
+}
+
+.layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 18px;
+  height: 100vh;
+  padding: 92px 22px 106px;
+}
+
+.stageShell {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(114, 247, 255, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(16, 34, 62, 0.44), rgba(17, 17, 38, 0.5)),
+    rgba(5, 11, 22, 0.5);
+  box-shadow: inset 0 0 80px rgba(114, 247, 255, 0.08), 0 28px 70px rgba(0, 0, 0, 0.28);
+}
+
+.stageBackgroundArt {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.98) contrast(1.04);
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(104, 216, 193, 0.06), transparent 29%),
+    linear-gradient(180deg, rgba(11, 24, 48, 0), rgba(10, 16, 32, 0.9) 88%);
+}
+
+.cloudMistOverlay {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: -2%;
+  display: block;
+  width: 100%;
+  height: 48%;
+  object-fit: cover;
+  object-position: bottom center;
+  pointer-events: none;
+  opacity: 0.78;
+  mix-blend-mode: screen;
+}
+
+.cloudLayer {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 34%;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.62;
+  background:
+    radial-gradient(ellipse at 18% 50%, rgba(245, 230, 200, 0.36), transparent 30%),
+    radial-gradient(ellipse at 46% 40%, rgba(114, 247, 255, 0.22), transparent 34%),
+    radial-gradient(ellipse at 76% 58%, rgba(245, 230, 200, 0.28), transparent 32%);
+}
+
+.cloudA {
+  bottom: -8%;
+  animation: cloudDrift 13s ease-in-out infinite alternate;
+}
+
+.cloudB {
+  bottom: 7%;
+  opacity: 0.28;
+  animation: cloudDrift 18s ease-in-out infinite alternate-reverse;
+}
+
+.moonGate {
+  position: absolute;
+  top: 16%;
+  right: 12%;
+  display: grid;
+  width: 74px;
+  height: 74px;
+  place-items: center;
+  border: 2px solid rgba(114, 247, 255, 0.35);
+  border-radius: 50%;
+  color: var(--cyan);
+  box-shadow: 0 0 36px rgba(114, 247, 255, 0.24), inset 0 0 30px rgba(114, 247, 255, 0.12);
+  animation: portalPulse 2.6s ease-in-out infinite;
+}
+
+.remoteIsland {
+  position: absolute;
+  border: 2px solid rgba(114, 247, 255, 0.18);
+  border-radius: 50% 50% 46% 46%;
+  background:
+    linear-gradient(180deg, rgba(104, 216, 193, 0.55), rgba(45, 74, 45, 0.58) 42%, rgba(61, 43, 31, 0.95) 43%),
+    #31422e;
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.26), 0 0 34px rgba(104, 216, 193, 0.16);
+}
+
+.remoteIsland span {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: rgba(248, 236, 208, 0.7);
+  font-size: 12px;
+}
+
+.remoteIsland.left {
+  top: 42%;
+  left: 12%;
+  width: 150px;
+  height: 50px;
+  animation: islandFloat 5.2s ease-in-out infinite;
+}
+
+.remoteIsland.right {
+  top: 50%;
+  right: 12%;
+  width: 160px;
+  height: 54px;
+  background:
+    linear-gradient(180deg, rgba(79, 140, 255, 0.5), rgba(31, 61, 92, 0.7) 42%, rgba(61, 43, 31, 0.95) 43%),
+    #1f3d5c;
+  animation: islandFloat 5.8s ease-in-out infinite reverse;
+}
+
+.remoteIsland.top {
+  top: 20%;
+  left: 48%;
+  width: 120px;
+  height: 42px;
+  background:
+    linear-gradient(180deg, rgba(179, 140, 255, 0.5), rgba(74, 31, 74, 0.7) 42%, rgba(61, 43, 31, 0.95) 43%),
+    #4a1f4a;
+  animation: islandFloat 6.4s ease-in-out infinite;
+}
+
+.mainIslandArt {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  z-index: 2;
+  width: min(760px, 78vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  animation: mainFloat 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.portalAsset {
+  position: absolute;
+  z-index: 6;
+  left: calc(50% + min(270px, 27vw));
+  top: 43%;
+  display: block;
+  width: clamp(96px, 12vw, 160px);
+  height: clamp(96px, 12vw, 160px);
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 26px rgba(114, 247, 255, 0.46));
+  animation: portalPulse 2.6s ease-in-out infinite;
+}
+
+.mainIslandArt img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 34px rgba(0, 0, 0, 0.36)) drop-shadow(0 0 26px rgba(114, 247, 255, 0.2));
+}
+
+.mainIslandArt::after {
+  position: absolute;
+  inset: 72% 12% 2% 12%;
+  content: "";
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(245, 230, 200, 0.24), transparent 68%);
+  filter: blur(10px);
+}
+
+.pavilion {
+  position: absolute;
+  left: 18%;
+  top: -32px;
+  width: 66px;
+  height: 44px;
+  border-bottom: 8px solid var(--violet);
+}
+
+.pavilion::before {
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 82px;
+  height: 13px;
+  content: "";
+  border-radius: 5px;
+  background: var(--red);
+}
+
+.pavilion::after {
+  position: absolute;
+  left: 10px;
+  top: 14px;
+  width: 6px;
+  height: 30px;
+  content: "";
+  border-radius: 4px;
+  background: var(--text);
+  box-shadow: 40px 0 0 var(--text);
+}
+
+.tower {
+  position: absolute;
+  right: 25%;
+  top: -56px;
+  width: 56px;
+  height: 72px;
+  border: 2px solid rgba(245, 230, 200, 0.45);
+  border-radius: 7px;
+  background: rgba(123, 94, 167, 0.92);
+}
+
+.tower::before {
+  position: absolute;
+  left: 9px;
+  top: -28px;
+  width: 34px;
+  height: 30px;
+  content: "";
+  border-radius: 5px 5px 2px 2px;
+  background: var(--red);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.portal {
+  position: absolute;
+  right: 10%;
+  top: -2px;
+  width: 46px;
+  height: 46px;
+  border: 3px solid var(--red);
+  border-radius: 50%;
+  background: rgba(123, 94, 167, 0.25);
+  box-shadow: 0 0 20px rgba(232, 93, 117, 0.55);
+  animation: rotatePortal 4s linear infinite;
+}
+
+.crane {
+  position: absolute;
+  top: 31%;
+  left: 20%;
+  width: 34px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.86);
+  animation: craneFly 8s ease-in-out infinite;
+}
+
+.crane::before,
+.crane::after {
+  position: absolute;
+  top: -5px;
+  width: 18px;
+  height: 8px;
+  content: "";
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.crane::before {
+  left: 2px;
+  transform: rotate(-22deg);
+}
+
+.crane::after {
+  right: 2px;
+  transform: rotate(22deg);
+}
+
+.avatarWrap {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  top: 54%;
+  display: grid;
+  width: clamp(150px, 18vw, 240px);
+  height: clamp(150px, 18vw, 240px);
+  place-items: center;
+  transition: transform 80ms linear;
+}
+
+.avatarGlow {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--aura), transparent 40%), transparent 70%);
+  filter: blur(12px);
+  opacity: 0.7;
+}
+
+.avatarAsset {
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.34)) drop-shadow(0 0 18px color-mix(in srgb, var(--aura), transparent 45%));
+  animation: avatarBreathe 2.4s ease-in-out infinite;
+}
+
+.nameplate {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  min-width: 62px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(245, 230, 200, 0.18);
+  border-radius: 999px;
+  padding: 4px 10px;
+  background: rgba(5, 11, 22, 0.64);
+  color: var(--text);
+  text-align: center;
+  font-size: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.swordOrbit {
+  position: absolute;
+  z-index: 3;
+  width: clamp(210px, 24vw, 320px);
+  height: clamp(210px, 24vw, 320px);
+  border-radius: 50%;
+  animation: swordOrbit 5s linear infinite;
+}
+
+.flyingSwordAsset {
+  position: absolute;
+  width: 118px;
+  height: 166px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px var(--sword));
+}
+
+.flyingSwordAsset.primary {
+  top: -44px;
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg);
+}
+
+.flyingSwordAsset.secondary {
+  right: -12px;
+  bottom: 2px;
+  width: 82px;
+  height: 130px;
+  transform: rotate(38deg);
+  opacity: 0.7;
+}
+
+.sceneHud {
+  position: absolute;
+  z-index: 6;
+  left: 18px;
+  bottom: 18px;
+  display: flex;
+  gap: 10px;
+  max-width: calc(100% - 160px);
+}
+
+.sceneHud div,
+.metric,
+.infoCard,
+.ecosystemCard,
+.hintBox {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 16, 30, 0.62);
+  box-shadow: inset 0 0 30px rgba(114, 247, 255, 0.04);
+  backdrop-filter: blur(16px);
+}
+
+.sceneHud div {
+  min-width: 118px;
+  padding: 10px 12px;
+}
+
+.sceneHud strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.joystick {
+  position: absolute;
+  z-index: 8;
+  right: 22px;
+  bottom: 20px;
+  display: grid;
+  width: 112px;
+  height: 112px;
+  place-items: center;
+  touch-action: none;
+  border: 1px solid rgba(245, 230, 200, 0.28);
+  border-radius: 50%;
+  background: rgba(123, 94, 167, 0.22);
+  box-shadow: inset 0 0 24px rgba(114, 247, 255, 0.1);
+}
+
+.joystickKnob {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #ffffff, var(--red) 36%, var(--violet));
+  box-shadow: 0 0 18px rgba(232, 93, 117, 0.45);
+  transition: transform 80ms linear;
+}
+
+.panel {
+  position: relative;
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--panel);
+  box-shadow: 0 24px 62px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(20px);
+}
+
+.panelPlaque {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 132px;
+  height: 30px;
+  object-fit: fill;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.panelHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--cyan);
+}
+
+.panelDivider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  width: 100%;
+  height: 18px;
+  object-fit: fill;
+  opacity: 0.34;
+  pointer-events: none;
+}
+
+.panelStack {
+  display: grid;
+  gap: 12px;
+}
+
+.infoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+}
+
+.infoCard strong,
+.itemCard strong,
+.friendRow strong,
+.metric strong,
+.ecosystemCard strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.infoCard small,
+.itemCard small,
+.friendRow span,
+.swordCard small,
+.swordCard em,
+.ecosystemCard p {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.hintBox,
+.ecosystemCard {
+  padding: 14px;
+  color: rgba(248, 236, 208, 0.76);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field input {
+  width: 100%;
+  border: 1px solid rgba(114, 247, 255, 0.22);
+  border-radius: 8px;
+  padding: 12px 13px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.field input:focus {
+  border-color: rgba(114, 247, 255, 0.72);
+  box-shadow: 0 0 0 3px rgba(114, 247, 255, 0.1);
+}
+
+.colorSection {
+  display: grid;
+  gap: 9px;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.swatches button {
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.24);
+}
+
+.swatches button.selected {
+  border-color: #ffffff;
+  box-shadow: 0 0 16px rgba(232, 93, 117, 0.6);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.swordGrid {
+  grid-template-columns: 1fr;
+}
+
+.swordCard,
+.itemCard {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.swordCard {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 7px 12px;
+  width: 100%;
+  padding: 12px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.swordCard.equipped {
+  border-color: rgba(114, 247, 255, 0.55);
+  background: rgba(114, 247, 255, 0.09);
+}
+
+.swordIcon {
+  grid-row: span 4;
+  display: grid;
+  width: 42px;
+  height: 64px;
+  margin: 4px auto 0;
+  place-items: center;
+  filter: drop-shadow(0 0 14px var(--sword-card));
+}
+
+.swordIcon img {
+  display: block;
+  width: 70px;
+  height: 96px;
+  object-fit: contain;
+}
+
+.power,
+.progress {
+  overflow: hidden;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.power span,
+.progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan), var(--gold));
+}
+
+.itemCard {
+  position: relative;
+  min-height: 158px;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.itemCard > span {
+  display: grid;
+  width: 70px;
+  height: 70px;
+  place-items: center;
+  border-radius: 16px;
+  color: var(--item);
+  background: color-mix(in srgb, var(--item), transparent 84%);
+  box-shadow: inset 0 0 18px color-mix(in srgb, var(--item), transparent 70%);
+}
+
+.itemCard > span img {
+  display: block;
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--item), transparent 35%));
+}
+
+.itemCard em {
+  display: inline-block;
+  margin-top: 11px;
+  border-radius: 999px;
+  padding: 4px 8px;
+  background: rgba(245, 230, 200, 0.08);
+  color: var(--gold);
+  font-size: 12px;
+  font-style: normal;
+}
+
+.friendRow {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.friendAvatar {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle, rgba(114, 247, 255, 0.18), rgba(5, 11, 22, 0.72)),
+    rgba(104, 216, 193, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(243, 201, 105, 0.34), 0 0 18px rgba(114, 247, 255, 0.1);
+}
+
+.friendAvatar img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.friendRow button,
+.bottomNav button {
+  border: 0;
+  cursor: pointer;
+}
+
+.friendRow button {
+  border-radius: 999px;
+  padding: 8px 11px;
+  background: rgba(232, 93, 117, 0.16);
+  color: var(--text);
+}
+
+.metric {
+  padding: 14px;
+}
+
+.metric > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.ecosystemCard svg {
+  color: var(--gold);
+}
+
+.bottomNav {
+  position: fixed;
+  z-index: 25;
+  left: 50%;
+  bottom: 22px;
+  display: grid;
+  width: min(780px, calc(100vw - 44px));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  transform: translateX(-50%);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 8px;
+  background: rgba(8, 16, 30, 0.78);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(18px);
+}
+
+.navOrnament {
+  position: absolute;
+  left: 50%;
+  top: -17px;
+  width: min(360px, 58vw);
+  height: 34px;
+  object-fit: fill;
+  transform: translateX(-50%);
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.bottomNav button {
+  display: grid;
+  min-width: 0;
+  min-height: 54px;
+  place-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  background: transparent;
+  color: rgba(248, 236, 208, 0.56);
+}
+
+.bottomNav button.active {
+  background: linear-gradient(180deg, rgba(232, 93, 117, 0.2), rgba(104, 216, 193, 0.1));
+  color: var(--text);
+}
+
+.bottomNav span {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+@keyframes starBreath {
+  from {
+    opacity: 0.68;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cloudDrift {
+  from {
+    transform: translateX(-3%);
+  }
+  to {
+    transform: translateX(3%);
+  }
+}
+
+@keyframes islandFloat {
+  0%,
+  100% {
+    transform: translateY(-4px);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+
+@keyframes mainFloat {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(7px);
+  }
+}
+
+@keyframes portalPulse {
+  0%,
+  100% {
+    opacity: 0.58;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes rotatePortal {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes craneFly {
+  0%,
+  100% {
+    transform: translate(-20px, 10px) rotate(-8deg);
+  }
+  50% {
+    transform: translate(160px, -44px) rotate(8deg);
+  }
+}
+
+@keyframes avatarBreathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes capeWave {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes swordOrbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 980px) {
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .topbar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .brandMark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand strong {
+    font-size: 15px;
+  }
+
+  .statusPills {
+    display: none;
+  }
+
+  .layout {
+    display: block;
+    height: 100dvh;
+    padding: 74px 10px 92px;
+  }
+
+  .stageShell {
+    height: calc(100dvh - 306px);
+    min-height: 360px;
+  }
+
+  .panel {
+    position: fixed;
+    z-index: 18;
+    left: 10px;
+    right: 10px;
+    bottom: 92px;
+    max-height: 210px;
+    padding: 12px;
+  }
+
+  .panelHeader {
+    margin-bottom: 10px;
+    padding-bottom: 9px;
+  }
+
+  .panelStack,
+  .cardGrid,
+  .swordGrid {
+    gap: 9px;
+  }
+
+  .cardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .infoCard,
+  .metric,
+  .hintBox,
+  .ecosystemCard,
+  .itemCard,
+  .swordCard,
+  .friendRow {
+    padding: 10px;
+  }
+
+  .sceneHud {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    max-width: calc(100% - 132px);
+    overflow-x: auto;
+  }
+
+  .sceneHud div {
+    min-width: 105px;
+  }
+
+  .joystick {
+    right: 14px;
+    bottom: 12px;
+    width: 96px;
+    height: 96px;
+  }
+
+  .mainIslandArt {
+    bottom: 12%;
+    width: min(560px, 112vw);
+  }
+
+  .remoteIsland.left,
+  .remoteIsland.right {
+    display: none;
+  }
+
+  .bottomNav {
+    bottom: 10px;
+    width: calc(100vw - 20px);
+    border-radius: 16px;
+    padding: 6px;
+  }
+
+  .bottomNav button {
+    min-height: 50px;
+  }
+
+  .bottomNav span {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .panel {
+    max-height: 235px;
+  }
+
+  .stageShell {
+    height: calc(100dvh - 328px);
+    min-height: 330px;
+  }
+
+  .sceneHud {
+    display: none;
+  }
+
+  .bottomNav svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .swatches {
+    grid-template-columns: repeat(6, 30px);
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

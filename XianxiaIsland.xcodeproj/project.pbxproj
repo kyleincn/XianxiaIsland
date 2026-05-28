@@ -1,0 +1,395 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		072199D9CA0228E8F69A1CF0 /* BackpackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01281C06ED30D8004AA7465 /* BackpackView.swift */; };
+		18168C4D23052698383D0542 /* Island.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0549F2833B7C0E6965D23601 /* Island.swift */; };
+		1B33540207069DF4F4E9F05C /* XianxiaIslandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1706816AB4C757B3A3AFBC7B /* XianxiaIslandApp.swift */; };
+		225D477C4FFCF49923BAED10 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B56E6591BD61925B6CFF4DE /* SettingsView.swift */; };
+		265099DDD1509C5DD90D0D93 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6550CEE76789A810769271A /* ContentView.swift */; };
+		36EE3974166D2F2E287B4B4F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC057D60AE9E16EB467E1EC7 /* AppState.swift */; };
+		42CF417AC06228E38A0D2893 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A3252AA19292BE31FFF507 /* FriendsView.swift */; };
+		62CA8C37E9747C77C507B0F5 /* IslandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8BE3EDF23850AB0114309B /* IslandView.swift */; };
+		656175500585E24E69EF701E /* MotionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65BBAFB29171632FEB8CF228 /* MotionData.swift */; };
+		69B5131FAE2DBD3904687FD7 /* VirtualJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C00BBF96BAD08B413D0D08F /* VirtualJoystick.swift */; };
+		73718D9EAE5210888BBB8469 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B97F0BB6DF12DE2DEBE1D856 /* TabBar.swift */; };
+		76D66111950D9E52A8905C47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C776CF74A31930B9236461E0 /* Assets.xcassets */; };
+		8FED5EC12B50E7C5C6EFA49F /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A445CF3D8F751F56001C684 /* AvatarView.swift */; };
+		B43EAEF8AEEAECF6959E7A45 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D597195DB63E0F7AF2F7A7D5 /* Avatar.swift */; };
+		BF1CD0C1EB119DF98A073F6F /* IslandScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E212520FD114539BCDAEA73 /* IslandScene.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0549F2833B7C0E6965D23601 /* Island.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Island.swift; sourceTree = "<group>"; };
+		05F6BD629D858141D38FF4B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		1706816AB4C757B3A3AFBC7B /* XianxiaIslandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XianxiaIslandApp.swift; sourceTree = "<group>"; };
+		2C00BBF96BAD08B413D0D08F /* VirtualJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualJoystick.swift; sourceTree = "<group>"; };
+		4B56E6591BD61925B6CFF4DE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		58A3252AA19292BE31FFF507 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		5E212520FD114539BCDAEA73 /* IslandScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandScene.swift; sourceTree = "<group>"; };
+		65BBAFB29171632FEB8CF228 /* MotionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionData.swift; sourceTree = "<group>"; };
+		6B8BE3EDF23850AB0114309B /* IslandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandView.swift; sourceTree = "<group>"; };
+		7A445CF3D8F751F56001C684 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		835BEB2AA24A5B5FD311B6B6 /* XianxiaIsland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XianxiaIsland.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01281C06ED30D8004AA7465 /* BackpackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackpackView.swift; sourceTree = "<group>"; };
+		B97F0BB6DF12DE2DEBE1D856 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		C6550CEE76789A810769271A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C776CF74A31930B9236461E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D597195DB63E0F7AF2F7A7D5 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
+		FC057D60AE9E16EB467E1EC7 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1210A85507353AA64C607961 = {
+			isa = PBXGroup;
+			children = (
+				66DD3B38621EFA083957F6E4 /* App */,
+				E79425AE0529C4C95F1B22C2 /* Components */,
+				8DAC9FF0E802F4D44C1C90CD /* Models */,
+				5E491C6A25FA41F13564668E /* Resources */,
+				F4E9F86D79B320DB75333FCB /* Scenes */,
+				E1B2F72800EA8035C80FE642 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5E491C6A25FA41F13564668E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C776CF74A31930B9236461E0 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		66DD3B38621EFA083957F6E4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FC057D60AE9E16EB467E1EC7 /* AppState.swift */,
+				C6550CEE76789A810769271A /* ContentView.swift */,
+				05F6BD629D858141D38FF4B8 /* Info.plist */,
+				1706816AB4C757B3A3AFBC7B /* XianxiaIslandApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		66F0203EC9001C39AC126322 /* Island */ = {
+			isa = PBXGroup;
+			children = (
+				5E212520FD114539BCDAEA73 /* IslandScene.swift */,
+				6B8BE3EDF23850AB0114309B /* IslandView.swift */,
+				2C00BBF96BAD08B413D0D08F /* VirtualJoystick.swift */,
+			);
+			path = Island;
+			sourceTree = "<group>";
+		};
+		724E1540F4F57203B095284A /* Backpack */ = {
+			isa = PBXGroup;
+			children = (
+				A01281C06ED30D8004AA7465 /* BackpackView.swift */,
+			);
+			path = Backpack;
+			sourceTree = "<group>";
+		};
+		8028DA49564CBE90106981D7 /* Avatar */ = {
+			isa = PBXGroup;
+			children = (
+				7A445CF3D8F751F56001C684 /* AvatarView.swift */,
+			);
+			path = Avatar;
+			sourceTree = "<group>";
+		};
+		8DAC9FF0E802F4D44C1C90CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D597195DB63E0F7AF2F7A7D5 /* Avatar.swift */,
+				0549F2833B7C0E6965D23601 /* Island.swift */,
+				65BBAFB29171632FEB8CF228 /* MotionData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AE576F357E9EE4607C6A24D4 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				58A3252AA19292BE31FFF507 /* FriendsView.swift */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		E1B2F72800EA8035C80FE642 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				835BEB2AA24A5B5FD311B6B6 /* XianxiaIsland.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E79425AE0529C4C95F1B22C2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B97F0BB6DF12DE2DEBE1D856 /* TabBar.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F4E9F86D79B320DB75333FCB /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				8028DA49564CBE90106981D7 /* Avatar */,
+				724E1540F4F57203B095284A /* Backpack */,
+				AE576F357E9EE4607C6A24D4 /* Friends */,
+				66F0203EC9001C39AC126322 /* Island */,
+				F7150A0FFDB8C7E7E82526B3 /* Settings */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		F7150A0FFDB8C7E7E82526B3 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4B56E6591BD61925B6CFF4DE /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E6E6C6968CA3E6E3738D156A /* XianxiaIsland */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75D332ADB99CE3DFDD65C4B /* Build configuration list for PBXNativeTarget "XianxiaIsland" */;
+			buildPhases = (
+				9423E4DA5663E7938055CBF3 /* Sources */,
+				B3C38BA2EF4FBCFE3AB3B73B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XianxiaIsland;
+			packageProductDependencies = (
+			);
+			productName = XianxiaIsland;
+			productReference = 835BEB2AA24A5B5FD311B6B6 /* XianxiaIsland.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A0FB207CB92AA98C1AC1850B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2650;
+			};
+			buildConfigurationList = E7071150B6338F688F9E597E /* Build configuration list for PBXProject "XianxiaIsland" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 1210A85507353AA64C607961;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E1B2F72800EA8035C80FE642 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E6E6C6968CA3E6E3738D156A /* XianxiaIsland */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B3C38BA2EF4FBCFE3AB3B73B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				76D66111950D9E52A8905C47 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9423E4DA5663E7938055CBF3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36EE3974166D2F2E287B4B4F /* AppState.swift in Sources */,
+				B43EAEF8AEEAECF6959E7A45 /* Avatar.swift in Sources */,
+				8FED5EC12B50E7C5C6EFA49F /* AvatarView.swift in Sources */,
+				072199D9CA0228E8F69A1CF0 /* BackpackView.swift in Sources */,
+				265099DDD1509C5DD90D0D93 /* ContentView.swift in Sources */,
+				42CF417AC06228E38A0D2893 /* FriendsView.swift in Sources */,
+				18168C4D23052698383D0542 /* Island.swift in Sources */,
+				BF1CD0C1EB119DF98A073F6F /* IslandScene.swift in Sources */,
+				62CA8C37E9747C77C507B0F5 /* IslandView.swift in Sources */,
+				656175500585E24E69EF701E /* MotionData.swift in Sources */,
+				225D477C4FFCF49923BAED10 /* SettingsView.swift in Sources */,
+				73718D9EAE5210888BBB8469 /* TabBar.swift in Sources */,
+				69B5131FAE2DBD3904687FD7 /* VirtualJoystick.swift in Sources */,
+				1B33540207069DF4F4E9F05C /* XianxiaIslandApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		43F40F15A5A823EDE76DBCF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = 5WJK4J5U7G;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		98734C4F445ECE85DE657207 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xianxiaisland.app;
+				PRODUCT_NAME = XianxiaIsland;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C3B14117FC36D6F803AB39E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				DEVELOPMENT_TEAM = 5WJK4J5U7G;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		FC4911290AC4989A78D0A14A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_FILE = App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xianxiaisland.app;
+				PRODUCT_NAME = XianxiaIsland;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7071150B6338F688F9E597E /* Build configuration list for PBXProject "XianxiaIsland" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				43F40F15A5A823EDE76DBCF9 /* Debug */,
+				C3B14117FC36D6F803AB39E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E75D332ADB99CE3DFDD65C4B /* Build configuration list for PBXNativeTarget "XianxiaIsland" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC4911290AC4989A78D0A14A /* Debug */,
+				98734C4F445ECE85DE657207 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A0FB207CB92AA98C1AC1850B /* Project object */;
+}
