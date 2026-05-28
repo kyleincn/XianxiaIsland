@@ -1,7 +1,7 @@
 # 仙侠岛 · 产品需求文档（PRD）
 
-> 文档版本：v1.0
-> 更新日期：2026-05-27
+> 文档版本：v1.1
+> 更新日期：2026-05-28
 > 状态：**开发中**
 
 ---
@@ -10,18 +10,56 @@
 
 ### 1.1 一句话描述
 
-一款以仙侠世界观为载体的岛屿探索类 iOS App，玩家以 Q 版角色在云海浮岛上自由漫游、展示状态，后续叠加运动跳绳等玩法。
+「星穹飞剑」是一款以仙侠世界观为载体的 Web/PWA 岛屿探索产品，玩家以 Q 版角色在云海浮岛上自由漫游、展示状态，后续叠加修行、运动数据和资产养成玩法。
+
+### 1.2 新增专栏：仙侠故事连载 📖
+
+**「穹顶之下」** — 有声可视仙侠读物专栏
+
+在仙侠世界的奇幻背景下，融入学习与成长的主题。目标是用诙谐幽默的方式，向学生和步入职场的年轻人弘扬正确的世界观和积极向上的正能量。
+
+#### 专栏定位
+| 维度 | 说明 |
+|------|------|
+| 内容形式 | 动态漫画 + 有声读物（图文+配音+动效） |
+| 更新节奏 | 每周更新一话，持续连载 |
+| 每话时长 | 约 3-5 分钟阅读 |
+| 风格调性 | 轻松幽默、正能量、仙侠世界观 + 现实成长共鸣 |
+
+#### 目标用户
+| 群体 | 特征 |
+|------|------|
+| 学生 | 初高中/大学，碎片化阅读习惯，喜欢轻松搞笑内容 |
+| 职场新人 | 通勤场景，需解压、治愈内容，偏好仙侠/二次元 |
+
+#### 内容方向
+- 以主角在仙侠世界的修行之旅为线索
+- 每话讲述一个小故事，传递成长、友谊、坚持等正面价值观
+- 穿插诙谐幽默的日常情节，降低仙侠题材的距离感
+- 结合学习/职场场景（如考试、实习、团队协作），引发年轻用户共鸣
+
+#### 章节规划
+| 章节 | 主题 | 调性 |
+|------|------|------|
+| 第一章「初入仙门」 | 新人入门，笨拙但努力 | 轻松搞笑，成长共鸣 |
+| 第二章「修仙日常」 | 门派生活，同学情谊 | 温馨治愈 |
+| 第三章「历练试炼」 | 升级挑战，团队协作 | 正能量热血 |
+
+#### 商业化方向（后期）
+- 付费解锁抢先看
+- 周边联动（角色、场景）
+- IP 衍生（动画、游戏）
 
 ### 1.2 背景与动机
 
 - 蛋仔派对证明了"岛屿漫游 + 可视化运动数据"的结合在国内市场有强吸引力
-- 灵动岛（Dynamic Island）为运动数据实时透传提供了原生能力
-- 当前阶段：先做**岛屿展示层**，验证交互体验，运动玩法后置
+- 当前阶段先做 **Web/PWA 岛屿展示层**，验证视觉吸引力、探索交互和资产展示体验
+- iOS 原生端、灵动岛和传感器能力暂停开发，待 Web/PWA 产品闭环验证后再评估是否恢复
 
 ### 1.3 核心价值
 
 - 提供沉浸式的仙侠风漫游体验
-- 通过灵动岛将运动数据（跳绳次数等）实时展示在 iPhone 顶部
+- 通过 Web/PWA 承载岛屿探索、角色展示、飞剑装备、背包和好友关系
 - 角色换装与个性化展示
 
 ---
@@ -39,22 +77,26 @@
 ## 3. 产品路线图
 
 ### Phase 1 — 方案设计 ✅
-- 确定技术选型（SwiftUI + SpriteKit）
+- 确定技术选型（React + Vite + TypeScript + PWA）
 - 确定视觉风格（云海浮岛）
 - 输出项目结构与里程碑规划
 
 ### Phase 2 — 岛屿基础 ✅
-- SpriteKit 场景加载，仙侠风背景（星空 + 云海粒子）
-- Q 版角色站立/行走动画
-- 虚拟摇杆控制
+- Web 主场景加载，仙侠风背景（星穹 + 云海 + 浮岛）
+- Q 版角色、飞剑环绕和传送门基础展示
+- WASD / 方向键 / 移动端虚拟摇杆控制
 - **里程碑：角色能在岛上走**
 
-### Phase 3 — 岛屿丰富化 🚧 待开发
-- 静态建筑、NPC 节点
-- 传送门交互光效
-- 云雾层次感、瀑布粒子
-- 仙鹤飞行路径动画
-- **里程碑：岛屿有仙侠氛围**
+### Phase 3 — 岛屿丰富化 + 故事专栏 🚧 待开发
+- 批量生成并接入主岛、子岛、NPC、建筑、传送门、云雾等美术资产
+- 建立可复用美术资产库和命名规范
+- 增加岛屿交互点：传送门、NPC、好友拜访入口
+- **新增：仙侠故事专栏「穹顶之下」**
+  - 专栏入口 UI（故事 tab）
+  - 第一话图文内容排版
+  - 有声朗读播放器（配音 + 动效）
+  - 阅读进度与书签
+  - **里程碑：仙侠世界可阅读可探索**
 
 ### Phase 4 — 换装 + 导航 🚧 待开发
 - 换装页面 UI，角色皮肤切换
@@ -62,11 +104,11 @@
 - 背包、好友列表 UI 占位
 - **里程碑：App 完整导航可操作**
 
-### Phase 5 — 灵动岛集成 🚧 待开发
-- ActivityKit Live Activity 配置
-- 运动数据模拟写入灵动岛
-- 角色状态实时透传
-- **里程碑：灵动岛数据透传**
+### Phase 5 — PWA 与数据闭环 🚧 待开发
+- PWA 安装、图标、离线缓存和移动端适配
+- 修行数据、背包、好友、飞剑装备数据模型稳定化
+- 本地数据持久化升级，为后端或 Supabase 接入预留结构
+- **里程碑：Web/PWA 可作为独立产品入口使用**
 
 ### Phase 6 — 跳绳游戏 🚧 待开发
 - 跳绳计数逻辑（传感器/Camera）
@@ -210,50 +252,44 @@
 
 | 层 | 技术 | 说明 |
 |----|------|------|
-| UI 框架 | SwiftUI | 页面结构、导航、换装 UI |
-| 游戏引擎 | SpriteKit | 岛屿场景、角色精灵、物理 |
-| 集成方式 | SpriteView | SwiftUI 内嵌 SpriteKit 场景 |
-| 灵动岛 | ActivityKit | Live Activity Widget Extension |
-| 持久化 | UserDefaults | 配置和换装数据 |
-| 包管理 | Swift Package Manager | 无外部依赖 |
-| 最低 iOS | 18.6 | 支持灵动岛 |
+| 前端框架 | React | 页面结构、状态和交互 |
+| 构建工具 | Vite | 本地开发、生产构建和静态资源处理 |
+| 语言 | TypeScript | 类型约束、资产映射和数据模型 |
+| 样式 | CSS | 响应式布局、动效和视觉系统 |
+| PWA | vite-plugin-pwa | 安装到主屏幕、manifest、缓存策略 |
+| 持久化 | localStorage | 角色、飞剑和基础偏好配置 |
+| 后端预留 | Supabase 或同类 BaaS | 用户、资产、好友和修行数据 |
+
+> iOS 原生端、SwiftUI、SpriteKit、ActivityKit 暂停开发。仓库中已有 iOS 原型代码保留为历史验证资产，当前不作为新增功能目标。
 
 ### 6.2 项目结构
 
 ```
 XianxiaIsland/
-├── App/
-│   ├── XianxiaIslandApp.swift      # App 入口
-│   ├── ContentView.swift          # 主视图 + TabView
-│   ├── AppState.swift             # 全局状态
-│   └── Info.plist
-├── Scenes/
-│   ├── Island/
-│   │   ├── IslandScene.swift      # SpriteKit 场景（核心）
-│   │   ├── IslandView.swift       # SwiftUI 容器
-│   │   └── VirtualJoystick.swift  # 虚拟摇杆
-│   ├── Avatar/
-│   │   └── AvatarView.swift       # 换装页
-│   ├── Backpack/
-│   │   └── BackpackView.swift     # 背包（占位）
-│   ├── Friends/
-│   │   └── FriendsView.swift      # 好友（占位）
-│   └── Settings/
-│       └── SettingsView.swift      # 设置页
-├── Models/
-│   ├── Avatar.swift               # 角色模型
-│   ├── Island.swift               # 岛屿模型
-│   └── MotionData.swift           # 运动数据模型
-├── Components/
-│   └── TabBar.swift               # 自定义底部 TabBar
-├── Resources/
-│   ├── Assets.xcassets/
-│   └── Audio/
-└── project.yml                    # XcodeGen 配置
+├── src/
+│   ├── App.tsx                    # Web/PWA 主应用
+│   ├── main.tsx                   # React 入口
+│   ├── styles.css                 # 全局视觉与动效
+│   ├── types.ts                   # 通用类型
+│   ├── Models/                    # Web 数据模型
+│   └── assets/
+│       ├── artAssets.ts           # 美术资产统一导出
+│       ├── ART-ASSETS.md          # 已接入资产说明
+│       ├── characters/
+│       ├── islands/
+│       ├── backgrounds/
+│       ├── effects/
+│       ├── items/
+│       ├── friends/
+│       └── ui/
+├── public/
+│   ├── manifest.json              # PWA manifest
+│   └── icons/
+├── package.json
+├── vite.config.ts
+└── WEB-ROADMAP.md                 # Web/PWA 开发说明
 
-XianxiaIslandWidgets/              # Widget Extension（Phase 5）
-├── XianxiaIslandWidgetsBundle.swift
-└── XianxiaIslandLiveActivity.swift
+App/、Scenes/、Resources/、XianxiaIsland.xcodeproj/ 为历史 iOS 原型代码，当前暂停开发。
 ```
 
 ### 6.3 数据模型
@@ -324,6 +360,13 @@ struct MotionData: Codable {
 - [ ] 瀑布粒子系统
 - [ ] 更多云雾层次
 - [ ] 背景音乐播放
+- [ ] **仙侠故事专栏「穹顶之下」**
+  - [ ] 故事 Tab 入口 UI
+  - [ ] 章节列表页
+  - [ ] 第一话内容排版（图文）
+  - [ ] 配音播放器组件
+  - [ ] 阅读进度/书签功能
+  - [ ] 第二话内容策划
 
 ### Phase 4 — 换装 + 导航
 - [ ] 皮肤数据持久化（UserDefaults）

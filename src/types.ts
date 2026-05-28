@@ -1,4 +1,4 @@
-export type Panel = "island" | "avatar" | "swords" | "backpack" | "friends" | "cultivation";
+export type Panel = "island" | "avatar" | "swords" | "backpack" | "friends" | "cultivation" | "story";
 
 export type IslandId = "home" | "lingcao" | "swordStage" | "xingque";
 
@@ -30,4 +30,33 @@ export type Sword = {
 export type Position = {
   x: number;
   y: number;
+};
+
+export type ContentBlock = {
+  type: "image" | "text" | "dialog";
+  content: string;
+  imageUrl?: string;
+};
+
+export type Chapter = {
+  id: string;
+  title: string;
+  content: ContentBlock[];
+  audioUrl?: string;
+  duration: number;
+};
+
+export type Story = {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  chapters: Chapter[];
+};
+
+export type ReadingProgress = {
+  chapterId: string;
+  progress: number;
+  completed: boolean;
+  lastReadAt: string;
 };

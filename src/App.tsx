@@ -1,9 +1,13 @@
 import {
   Backpack,
   BarChart3,
+  BookOpen,
   Cloud,
   Home,
+  Music,
+  Pause,
   Palette,
+  Play,
   Settings2,
   Shield,
   Sparkles,
@@ -12,14 +16,15 @@ import {
 } from "lucide-react";
 import { PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { artAssets } from "./assets/artAssets";
-import { backpackItems } from "./Models/BackpackItem";
+import { backpackItems, rarityLabels, type BackpackItem } from "./Models/BackpackItem";
+import { stories } from "./data/stories";
 import type { AvatarState, IslandId, IslandMeta, Panel, Position, Sword } from "./types";
 
 const islands: IslandMeta[] = [
   { id: "home", name: "仙侠岛", description: "主岛屿，角色展示与飞剑养成的核心区域" },
-  { id: "lingcao", name: "灵草屿", description: "灵草丰茂，适合采集炼丹材料" },
-  { id: "swordStage", name: "飞剑台", description: "飞剑修炼圣地，可提升飞剑熟练度" },
-  { id: "xingque", name: "星阙", description: "高阶岛屿，灵力浓郁，适合闭关冲击境界" }
+  { id: "lingcao", name: "灵草园", description: "灵草丰茂，适合采集炼丹材料" },
+  { id: "swordStage", name: "剑炉台", description: "飞剑锻造圣地，可提升飞剑熟练度" },
+  { id: "xingque", name: "月泉", description: "月华凝成的修行泉，适合恢复灵力与闭关" }
 ];
 
 const STORAGE_KEY = "xianxia-island-web-state";
@@ -29,6 +34,7 @@ const panels: Array<{ id: Panel; label: string; icon: typeof Home }> = [
   { id: "avatar", label: "换装", icon: Palette },
   { id: "swords", label: "飞剑库", icon: Swords },
   { id: "backpack", label: "背包", icon: Backpack },
+  { id: "story", label: "故事", icon: BookOpen },
   { id: "friends", label: "好友", icon: Users },
   { id: "cultivation", label: "修行", icon: BarChart3 }
 ];
@@ -59,6 +65,33 @@ const swordArtById: Record<string, string> = {
   gold: artAssets.swords.antiqueGold,
   void: artAssets.swords.violetVoid
 };
+
+const swordTrailById: Record<string, string> = {
+  starlight: artAssets.swords.trails.cyan,
+  jade: artAssets.swords.trails.cyan,
+  ember: artAssets.swords.trails.crimson,
+  moon: artAssets.swords.trails.cyan,
+  gold: artAssets.swords.trails.crimson,
+  void: artAssets.swords.trails.violet
+};
+
+const itemFrameByRarity: Record<BackpackItem["rarity"], string> = {
+  "普通": artAssets.items.frames.common,
+  "稀有": artAssets.items.frames.rare,
+  "珍稀": artAssets.items.frames.superRare,
+  "传说": artAssets.items.frames.legendary
+};
+
+const stageIslands: Array<{ meta: IslandMeta; art: string; position: "left" | "right" | "top" }> = [
+  { meta: islands[1], art: artAssets.islands.spiritGarden, position: "left" },
+  { meta: islands[2], art: artAssets.islands.swordForge, position: "right" },
+  { meta: islands[3], art: artAssets.islands.moonSpring, position: "top" }
+];
+
+const backgroundTracks = [
+  { id: "cloud-stardome-01", name: "云雾星穹 一", src: artAssets.audio.cloudStardome01 },
+  { id: "cloud-stardome-02", name: "云雾星穹 二", src: artAssets.audio.cloudStardome02 }
+];
 
 const colorSets = {
   robe: ["#68d8c1", "#7b5ea7", "#f3c969", "#e85d75", "#f5e6c8", "#4f8cff"],
@@ -102,15 +135,42 @@ export default function App() {
   const [equippedSwordId, setEquippedSwordId] = useState(persisted.swordId);
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [joystick, setJoystick] = useState<Position>({ x: 0, y: 0 });
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [activeChapterId, setActiveChapterId] = useState<string | null>(null);
   const keysRef = useRef(new Set<string>());
   const joystickRef = useRef<Position>({ x: 0, y: 0 });
   const lastFrameRef = useRef<number | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const isMovingRef = useRef(false);
 
   const equippedSword = swords.find((sword) => sword.id === equippedSwordId) ?? swords[0];
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ avatar, swordId: equippedSwordId }));
   }, [avatar, equippedSwordId]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = 0.42;
+    audio.loop = true;
+    if (!isMusicPlaying) {
+      audio.pause();
+      return;
+    }
+    void audio.play().catch(() => setIsMusicPlaying(false));
+  }, [isMusicPlaying, trackIndex]);
+
+  const toggleMusic = () => {
+    setIsMusicPlaying((playing) => !playing);
+  };
+
+  const switchTrack = () => {
+    setTrackIndex((current) => (current + 1) % backgroundTracks.length);
+    setIsMusicPlaying(true);
+  };
 
   useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -144,6 +204,10 @@ export default function App() {
       if (keys.has("arrowdown") || keys.has("s")) dy += 1;
 
       const distance = Math.hypot(dx, dy);
+      if ((distance > 0.01) !== isMovingRef.current) {
+        isMovingRef.current = distance > 0.01;
+        setIsMoving(distance > 0.01);
+      }
       if (distance > 0.01) {
         const speed = 3.2 * delta;
         const nx = dx / distance;
@@ -191,11 +255,17 @@ export default function App() {
           "--hair": avatar.hair,
           "--accent": avatar.accent,
           "--aura": avatar.aura,
-          "--sword": equippedSword.color
+          "--sword": equippedSword.color,
+          "--ui-panel-frame": `url(${artAssets.ui.system.panelFrame})`,
+          "--ui-progress-frame": `url(${artAssets.ui.system.progressCultivation})`,
+          "--ui-tab-selected": `url(${artAssets.ui.system.tabSelected})`,
+          "--ui-button-primary": `url(${artAssets.ui.system.buttonPrimary})`,
+          "--ui-toast-frame": `url(${artAssets.ui.system.toastFrame})`
         } as React.CSSProperties
       }
     >
       <StarField />
+      <audio ref={audioRef} src={backgroundTracks[trackIndex].src} preload="metadata" />
       <header className="topbar">
         <div className="brand">
           <div className="brandMark">
@@ -211,6 +281,15 @@ export default function App() {
           <span>当前飞剑：{equippedSword.name}</span>
           <span>今日修行 42 分钟</span>
         </div>
+        <div className="musicControls" aria-label="背景音乐">
+          <button onClick={toggleMusic} type="button" aria-label={isMusicPlaying ? "暂停背景音乐" : "播放背景音乐"}>
+            {isMusicPlaying ? <Pause size={16} /> : <Play size={16} />}
+          </button>
+          <button onClick={switchTrack} type="button" aria-label="切换背景音乐">
+            <Music size={16} />
+            <span>{backgroundTracks[trackIndex].name}</span>
+          </button>
+        </div>
       </header>
 
       <main className="layout">
@@ -220,6 +299,7 @@ export default function App() {
             avatar={avatar}
             sword={equippedSword}
             position={position}
+            isMoving={isMoving}
             activeIslandId={activeIslandId}
             onPortalClick={(island) => setActiveIslandId(island.id)}
           />
@@ -264,6 +344,14 @@ export default function App() {
             <SwordPanel equippedSwordId={equippedSwordId} equipSword={setEquippedSwordId} />
           )}
           {activePanel === "backpack" && <BackpackPanel />}
+          {activePanel === "story" && (
+            <StoryPanel
+              story={stories[0]}
+              activeChapterId={activeChapterId}
+              onChapterOpen={setActiveChapterId}
+              onChapterClose={() => setActiveChapterId(null)}
+            />
+          )}
           {activePanel === "friends" && <FriendsPanel />}
           {activePanel === "cultivation" && <CultivationPanel sword={equippedSword} />}
         </aside>
@@ -304,12 +392,14 @@ function IslandStage({
   avatar,
   sword,
   position,
+  isMoving,
   activeIslandId,
   onPortalClick
 }: {
   avatar: AvatarState;
   sword: Sword;
   position: Position;
+  isMoving: boolean;
   activeIslandId: IslandId;
   onPortalClick: (island: IslandMeta) => void;
 }) {
@@ -317,42 +407,48 @@ function IslandStage({
     <div className="stage">
       <div className="cloudLayer cloudA" />
       <div className="cloudLayer cloudB" />
-      <div className="remoteIsland left" onClick={() => onPortalClick(islands[1])} role="button" tabIndex={0}>
-        <span>灵草屿</span>
-      </div>
-      <div className="remoteIsland right" onClick={() => onPortalClick(islands[2])} role="button" tabIndex={0}>
-        <span>飞剑台</span>
-      </div>
-      <div className="remoteIsland top" onClick={() => onPortalClick(islands[3])} role="button" tabIndex={0}>
-        <span>星阙</span>
-      </div>
+      {stageIslands.map((island) => (
+        <button
+          key={island.meta.id}
+          className={`remoteIsland ${island.position}${activeIslandId === island.meta.id ? " active" : ""}`}
+          onClick={() => onPortalClick(island.meta)}
+          type="button"
+          aria-label={`前往${island.meta.name}`}
+        >
+          <img src={island.art} alt="" aria-hidden="true" />
+          <span>{island.meta.name}</span>
+        </button>
+      ))}
       <div className="mainIslandArt">
         <img src={artAssets.islands.main} alt="仙侠岛主岛" />
+        <img className="cloudPavilionAsset" src={artAssets.buildings.cloudPavilion} alt="" aria-hidden="true" />
       </div>
       <img
         className="portalAsset"
-        src={artAssets.effects.teleportPortal}
+        src={artAssets.effects.portalActive}
         alt="星穹传送门"
         onClick={() => onPortalClick(islands[1])}
         role="button"
         tabIndex={0}
         aria-label="点击传送"
       />
-      <AvatarSprite avatar={avatar} sword={sword} position={position} />
+      <AvatarSprite avatar={avatar} sword={sword} position={position} isMoving={isMoving} />
       <div className="crane" />
     </div>
   );
 }
 
-function AvatarSprite({ avatar, sword, position }: { avatar: AvatarState; sword: Sword; position: Position }) {
+function AvatarSprite({ avatar, sword, position, isMoving }: { avatar: AvatarState; sword: Sword; position: Position; isMoving: boolean }) {
+  const characterArt = isMoving ? artAssets.character.walkRightV2 : artAssets.character.idleV2;
+
   return (
-    <div className="avatarWrap" style={{ transform: `translate(calc(-50% + ${position.x}vw), calc(-50% + ${position.y}vh))` }}>
+    <div className={`avatarWrap ${isMoving ? "moving" : ""}`} style={{ transform: `translate(calc(-50% + ${position.x}vw), calc(-50% + ${position.y}vh))` }}>
       <div className="swordOrbit">
         <img className="flyingSwordAsset primary" src={swordArtById[sword.id]} alt={sword.name} title={sword.name} />
         <img className="flyingSwordAsset secondary" src={artAssets.swords.iceBlue} alt="" aria-hidden="true" />
       </div>
       <div className="avatarGlow" />
-      <img className="avatarAsset" src={artAssets.character.hero} alt={`${avatar.nickname} 的角色`} />
+      <img className="avatarAsset" src={characterArt} alt={`${avatar.nickname} 的角色`} />
       <div className="nameplate">{avatar.nickname}</div>
     </div>
   );
@@ -402,6 +498,12 @@ function AvatarPanel({
       <ColorSection title="发色" colors={colorSets.hair} value={avatar.hair} onChange={(value) => updateAvatar("hair", value)} />
       <ColorSection title="点缀" colors={colorSets.accent} value={avatar.accent} onChange={(value) => updateAvatar("accent", value)} />
       <ColorSection title="剑气" colors={colorSets.robe} value={avatar.aura} onChange={(value) => updateAvatar("aura", value)} />
+      <div className="characterActionGrid" aria-label="角色动作资产">
+        <img src={artAssets.character.idleV2} alt="待机动作" />
+        <img src={artAssets.character.walkRightV2} alt="行走动作" />
+        <img src={artAssets.character.castV2} alt="施法动作" />
+        <img src={artAssets.character.swordRideV2} alt="御剑动作" />
+      </div>
     </div>
   );
 }
@@ -444,25 +546,35 @@ function SwordPanel({
   equipSword: (id: string) => void;
 }) {
   return (
-    <div className="cardGrid swordGrid">
-      {swords.map((sword) => (
-        <button
-          key={sword.id}
-          className={`swordCard ${equippedSwordId === sword.id ? "equipped" : ""}`}
-          onClick={() => equipSword(sword.id)}
-          type="button"
-        >
-          <span className="swordIcon" style={{ "--sword-card": sword.color } as React.CSSProperties}>
-            <img src={swordArtById[sword.id]} alt="" aria-hidden="true" />
-          </span>
-          <strong>{sword.name}</strong>
-          <small>{sword.rarity} · {sword.element}系</small>
-          <div className="power">
-            <span style={{ width: `${sword.power}%` }} />
-          </div>
-          <em>{equippedSwordId === sword.id ? "已装备" : sword.trait}</em>
-        </button>
-      ))}
+    <div className="panelStack">
+      <div className="swordForgeShowcase">
+        <img src={artAssets.swords.forgePlatform} alt="" aria-hidden="true" />
+        <div>
+          <span>飞剑锻造台</span>
+          <strong>御剑资产系列</strong>
+        </div>
+      </div>
+      <div className="cardGrid swordGrid">
+        {swords.map((sword) => (
+          <button
+            key={sword.id}
+            className={`swordCard ${equippedSwordId === sword.id ? "equipped" : ""}`}
+            onClick={() => equipSword(sword.id)}
+            type="button"
+          >
+            <span className="swordIcon" style={{ "--sword-card": sword.color } as React.CSSProperties}>
+              <img className="swordTrailAsset" src={swordTrailById[sword.id]} alt="" aria-hidden="true" />
+              <img className="swordBladeAsset" src={swordArtById[sword.id]} alt="" aria-hidden="true" />
+            </span>
+            <strong>{sword.name}</strong>
+            <small>{sword.rarity} · {sword.element}系</small>
+            <div className="power">
+              <span style={{ width: `${sword.power}%` }} />
+            </div>
+            <em>{equippedSwordId === sword.id ? "已装备" : sword.trait}</em>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -471,12 +583,14 @@ function BackpackPanel() {
   return (
     <div className="cardGrid">
       {backpackItems.map((item) => (
-        <div key={item.name} className="itemCard">
-          <span style={{ "--item": item.color } as React.CSSProperties}>
+        <div key={item.name} className={`itemCard rarity-${rarityLabels[item.rarity].toLowerCase()}`}>
+          <img className="itemFrameAsset" src={itemFrameByRarity[item.rarity]} alt="" aria-hidden="true" />
+          <span className="itemIcon" style={{ "--item": item.color } as React.CSSProperties}>
             <img src={item.art} alt="" aria-hidden="true" />
           </span>
           <strong>{item.name}</strong>
           <small>{item.type}</small>
+          <b>{rarityLabels[item.rarity]}</b>
           <em>x{item.count}</em>
         </div>
       ))}
@@ -551,6 +665,91 @@ function InfoCard({
         <span>{title}</span>
         <strong>{value}</strong>
         <small>{detail}</small>
+      </div>
+    </div>
+  );
+}
+
+function StoryPanel({
+  story,
+  activeChapterId,
+  onChapterOpen,
+  onChapterClose
+}: {
+  story: typeof stories[0];
+  activeChapterId: string | null;
+  onChapterOpen: (id: string) => void;
+  onChapterClose: () => void;
+}) {
+  const activeChapter = story.chapters.find((ch) => ch.id === activeChapterId);
+
+  if (activeChapter) {
+    return (
+      <div className="storyReader">
+        <div className="storyReaderHeader">
+          <button className="backBtn" onClick={onChapterClose} type="button">
+            ← 返回
+          </button>
+          <span>{activeChapter.title}</span>
+          <span className="storyDuration">{activeChapter.duration}分钟</span>
+        </div>
+        <div className="storyContent">
+          {activeChapter.content.map((block, index) => {
+            if (block.type === "text") {
+              return <p key={index} className="storyText">{block.content}</p>;
+            }
+            if (block.type === "dialog") {
+              return (
+                <div key={index} className="storyDialog">
+                  <span className="dialogBubble">{block.content}</span>
+                </div>
+              );
+            }
+            if (block.type === "image") {
+              return (
+                <div key={index} className="storyImagePlaceholder">
+                  <span>插图区域</span>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+        <div className="storyAudioPlayer">
+          <button type="button" className="playBtn">▶</button>
+          <div className="audioProgress">
+            <div className="audioProgressBar" style={{ width: "30%" }} />
+          </div>
+          <span className="audioTime">1:12 / 4:00</span>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="panelStack">
+      <div className="storyHero">
+        <div className="storyCover">
+          <span className="storyCoverIcon">📖</span>
+        </div>
+        <div className="storyMeta">
+          <strong>{story.title}</strong>
+          <span>{story.description}</span>
+        </div>
+      </div>
+      <div className="chapterList">
+        {story.chapters.map((chapter) => (
+          <button
+            key={chapter.id}
+            className="chapterCard"
+            onClick={() => onChapterOpen(chapter.id)}
+            type="button"
+          >
+            <span className="chapterNum">{chapter.title.split("·")[0]}</span>
+            <span className="chapterTitle">{chapter.title.split("·")[1] ?? chapter.title}</span>
+            <span className="chapterDuration">{chapter.duration}分钟</span>
+          </button>
+        ))}
       </div>
     </div>
   );
