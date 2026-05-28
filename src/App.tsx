@@ -139,6 +139,7 @@ export default function App() {
   const [isMoving, setIsMoving] = useState(false);
   const [trackIndex, setTrackIndex] = useState(0);
   const [activeChapterId, setActiveChapterId] = useState<string | null>(null);
+  const [isReadingStory, setIsReadingStory] = useState(false);
   const keysRef = useRef(new Set<string>());
   const joystickRef = useRef<Position>({ x: 0, y: 0 });
   const lastFrameRef = useRef<number | null>(null);
@@ -281,6 +282,10 @@ export default function App() {
           <span>当前飞剑：{equippedSword.name}</span>
           <span>今日修行 42 分钟</span>
         </div>
+        <div className="credit">
+          <span>Credits</span>
+          <strong>Leon Li — Junior Developer</strong>
+        </div>
         <div className="musicControls" aria-label="背景音乐">
           <button onClick={toggleMusic} type="button" aria-label={isMusicPlaying ? "暂停背景音乐" : "播放背景音乐"}>
             {isMusicPlaying ? <Pause size={16} /> : <Play size={16} />}
@@ -293,46 +298,59 @@ export default function App() {
       </header>
 
       <main className="layout">
-        <section className="stageShell" aria-label="仙侠岛主场景">
-          <img className="stageBackgroundArt" src={artAssets.backgrounds.starDome} alt="" aria-hidden="true" />
-          <IslandStage
-            avatar={avatar}
-            sword={equippedSword}
-            position={position}
-            isMoving={isMoving}
-            activeIslandId={activeIslandId}
-            onPortalClick={(island) => setActiveIslandId(island.id)}
-          />
-          <img className="cloudMistOverlay" src={artAssets.effects.cloudMist} alt="" aria-hidden="true" />
-          <div className="sceneHud">
-            <div>
-              <span>当前岛屿</span>
-              <strong>{islands.find(i => i.id === activeIslandId)?.name ?? "仙侠岛"}</strong>
-            </div>
-            <div>
-              <span>灵力</span>
-              <strong>86%</strong>
-            </div>
-            <div>
-              <span>飞剑熟练度</span>
-              <strong>{equippedSword.power}</strong>
-            </div>
-          </div>
-          <div
-            className="joystick"
-            onPointerDown={(event) => {
-              event.currentTarget.setPointerCapture(event.pointerId);
-              handleJoystick(event);
-            }}
-            onPointerMove={(event) => {
-              if (event.currentTarget.hasPointerCapture(event.pointerId)) handleJoystick(event);
-            }}
-            onPointerUp={releaseJoystick}
-            onPointerCancel={releaseJoystick}
-            aria-label="虚拟摇杆"
-          >
-            <div className="joystickKnob" style={{ transform: `translate(${joystick.x}px, ${joystick.y}px)` }} />
-          </div>
+        <section className={`stageShell ${isReadingStory ? "showingStory" : ""}`} aria-label="仙侠岛主场景">
+          {isReadingStory && stories[0].chapters.find(ch => ch.id === activeChapterId) && (
+            <StoryReaderOverlay
+              chapter={stories[0].chapters.find(ch => ch.id === activeChapterId)!}
+              onClose={() => {
+                setActiveChapterId(null);
+                setIsReadingStory(false);
+              }}
+            />
+          )}
+          {!isReadingStory && (
+            <>
+              <img className="stageBackgroundArt" src={artAssets.backgrounds.starDome} alt="" aria-hidden="true" />
+              <IslandStage
+                avatar={avatar}
+                sword={equippedSword}
+                position={position}
+                isMoving={isMoving}
+                activeIslandId={activeIslandId}
+                onPortalClick={(island) => setActiveIslandId(island.id)}
+              />
+              <img className="cloudMistOverlay" src={artAssets.effects.cloudMist} alt="" aria-hidden="true" />
+              <div className="sceneHud">
+                <div>
+                  <span>当前岛屿</span>
+                  <strong>{islands.find(i => i.id === activeIslandId)?.name ?? "仙侠岛"}</strong>
+                </div>
+                <div>
+                  <span>灵力</span>
+                  <strong>86%</strong>
+                </div>
+                <div>
+                  <span>飞剑熟练度</span>
+                  <strong>{equippedSword.power}</strong>
+                </div>
+              </div>
+              <div
+                className="joystick"
+                onPointerDown={(event) => {
+                  event.currentTarget.setPointerCapture(event.pointerId);
+                  handleJoystick(event);
+                }}
+                onPointerMove={(event) => {
+                  if (event.currentTarget.hasPointerCapture(event.pointerId)) handleJoystick(event);
+                }}
+                onPointerUp={releaseJoystick}
+                onPointerCancel={releaseJoystick}
+                aria-label="虚拟摇杆"
+              >
+                <div className="joystickKnob" style={{ transform: `translate(${joystick.x}px, ${joystick.y}px)` }} />
+              </div>
+            </>
+          )}
         </section>
 
         <aside className="panel">
@@ -348,8 +366,14 @@ export default function App() {
             <StoryPanel
               story={stories[0]}
               activeChapterId={activeChapterId}
-              onChapterOpen={setActiveChapterId}
-              onChapterClose={() => setActiveChapterId(null)}
+              onChapterOpen={(id) => {
+                setActiveChapterId(id);
+                setIsReadingStory(true);
+              }}
+              onChapterClose={() => {
+                setActiveChapterId(null);
+                setIsReadingStory(false);
+              }}
             />
           )}
           {activePanel === "friends" && <FriendsPanel />}
@@ -647,6 +671,55 @@ function Metric({ label, value, progress }: { label: string; value: string; prog
   );
 }
 
+function StoryReaderOverlay({
+  chapter,
+  onClose
+}: {
+  chapter: typeof stories[0]["chapters"][0];
+  onClose: () => void;
+}) {
+  return (
+    <div className="storyReaderOverlay">
+      <div className="storyReaderHeader">
+        <button className="backBtn" onClick={onClose} type="button">
+          ← 返回
+        </button>
+        <span>{chapter.title}</span>
+        <span className="storyDuration">{chapter.duration}分钟</span>
+      </div>
+      <div className="storyContent">
+        {chapter.content.map((block, index) => {
+          if (block.type === "text") {
+            return <p key={index} className="storyText">{block.content}</p>;
+          }
+          if (block.type === "dialog") {
+            return (
+              <div key={index} className="storyDialog">
+                <span className="dialogBubble">{block.content}</span>
+              </div>
+            );
+          }
+          if (block.type === "image") {
+            return (
+              <div key={index} className="storyImagePlaceholder">
+                <span>插图区域</span>
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+      <div className="storyAudioPlayer">
+        <button type="button" className="playBtn">▶</button>
+        <div className="audioProgress">
+          <div className="audioProgressBar" style={{ width: "30%" }} />
+        </div>
+        <span className="audioTime">1:12 / {chapter.duration}:00</span>
+      </div>
+    </div>
+  );
+}
+
 function InfoCard({
   icon,
   title,
@@ -685,42 +758,29 @@ function StoryPanel({
 
   if (activeChapter) {
     return (
-      <div className="storyReader">
-        <div className="storyReaderHeader">
-          <button className="backBtn" onClick={onChapterClose} type="button">
-            ← 返回
-          </button>
-          <span>{activeChapter.title}</span>
-          <span className="storyDuration">{activeChapter.duration}分钟</span>
-        </div>
-        <div className="storyContent">
-          {activeChapter.content.map((block, index) => {
-            if (block.type === "text") {
-              return <p key={index} className="storyText">{block.content}</p>;
-            }
-            if (block.type === "dialog") {
-              return (
-                <div key={index} className="storyDialog">
-                  <span className="dialogBubble">{block.content}</span>
-                </div>
-              );
-            }
-            if (block.type === "image") {
-              return (
-                <div key={index} className="storyImagePlaceholder">
-                  <span>插图区域</span>
-                </div>
-              );
-            }
-            return null;
-          })}
-        </div>
-        <div className="storyAudioPlayer">
-          <button type="button" className="playBtn">▶</button>
-          <div className="audioProgress">
-            <div className="audioProgressBar" style={{ width: "30%" }} />
+      <div className="panelStack">
+        <div className="storyHero">
+          <div className="storyCover">
+            <span className="storyCoverIcon">📖</span>
           </div>
-          <span className="audioTime">1:12 / 4:00</span>
+          <div className="storyMeta">
+            <strong>{story.title}</strong>
+            <span>{story.description}</span>
+          </div>
+        </div>
+        <div className="chapterList">
+          {story.chapters.map((chapter) => (
+            <button
+              key={chapter.id}
+              className={`chapterCard ${activeChapterId === chapter.id ? "active" : ""}`}
+              onClick={() => onChapterOpen(chapter.id)}
+              type="button"
+            >
+              <span className="chapterNum">{chapter.title.split("·")[0]}</span>
+              <span className="chapterTitle">{chapter.title.split("·")[1] ?? chapter.title}</span>
+              <span className="chapterDuration">{chapter.duration}分钟</span>
+            </button>
+          ))}
         </div>
       </div>
     );
