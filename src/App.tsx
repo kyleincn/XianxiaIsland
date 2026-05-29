@@ -701,8 +701,14 @@ function StoryReaderOverlay({
           }
           if (block.type === "image") {
             return (
-              <div key={index} className="storyImagePlaceholder">
-                <span>插图区域</span>
+              <div key={index} className="storyImageBlock">
+                {block.imageUrl ? (
+                  <img src={block.imageUrl} alt={block.content || "故事插图"} />
+                ) : (
+                  <div className="storyImagePlaceholder">
+                    <span>插图区域</span>
+                  </div>
+                )}
               </div>
             );
           }

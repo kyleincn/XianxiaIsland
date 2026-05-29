@@ -73,6 +73,9 @@ import uiPanelFrame from "./ui/system/ui-panel-frame-v1.png";
 import uiProgressCultivation from "./ui/system/ui-progress-cultivation-v1.png";
 import uiTabSelected from "./ui/system/ui-tab-selected-v1.png";
 import uiToastFrame from "./ui/system/ui-toast-frame-v1.png";
+import storyCh1Scene1 from "./story/ch1-scene1.jpeg";
+import storyCh1Scene2 from "./story/ch1-scene2.jpeg";
+import storyCh1Scene3 from "./story/ch1-scene3.jpeg";
 
 export const artAssets = {
   audio: {
@@ -175,5 +178,10 @@ export const artAssets = {
       buttonPrimary: uiButtonPrimary,
       toastFrame: uiToastFrame
     }
+  },
+  story: {
+    ch1Scene1: storyCh1Scene1,
+    ch1Scene2: storyCh1Scene2,
+    ch1Scene3: storyCh1Scene3
   }
 } as const;
